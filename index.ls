@@ -1,6 +1,6 @@
 require! [fibers,"fibers/future",http,url,fs]
 
-module.exports = (options)->
+exports.request = (options)->
 	out = new future
 	timer = set-timeout (->out.throw Error \timeout), 1e5
 
@@ -19,6 +19,7 @@ module.exports = (options)->
 	
 	out.wait!
 
+
 [\GET \POST \PUT \DELETE \OPTIONS \TRACE \CONNECT \HEAD].for-each (method)->
 	exports[method.to-lower-case!] = (path,options ? {})~>
-		module.exports options import (url.parse path) import {method}
+		exports.request options import (url.parse path) import {method}

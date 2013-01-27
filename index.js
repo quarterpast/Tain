@@ -5,7 +5,7 @@
   http = require('http');
   url = require('url');
   fs = require('fs');
-  module.exports = function(options){
+  exports.request = function(options){
     var out, timer, req;
     out = new future;
     timer = setTimeout(function(){
@@ -52,7 +52,7 @@
     return exports[method.toLowerCase()] = function(path, options){
       var ref$;
       options == null && (options = {});
-      return module.exports((ref$ = import$(options, url.parse(path)), ref$.method = method, ref$));
+      return exports.request((ref$ = import$(options, url.parse(path)), ref$.method = method, ref$));
     };
   });
   function compose$(fs){
